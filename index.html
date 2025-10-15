@@ -16,14 +16,37 @@
         </div>
       </div>
       <div class="actions">
-        <button id="btnNova">Nova proposta</button>
+        <button id="btnNovaProposta">Nova proposta</button>
         <button id="btnSalvar">Salvar</button>
+        <button id="btnExportarJSON" title="Exportar Backup">💾 JSON</button>
+        <button id="btnImportarJSON" title="Importar Backup">📂 JSON</button>
+        <input type="file" id="inputImportarJSON" accept=".json" style="display:none" />
         <button id="btnPDF" class="primary">Exportar PDF</button>
       </div>
     </header>
 
     <main class="grid">
       <section class="panel form-panel">
+        <h2>📋 Gerenciar Propostas</h2>
+        <div class="propostas-manager">
+          <div class="field-row">
+            <div class="field-group">
+              <label>Nome da Proposta</label>
+              <input id="nomeProposta" placeholder="Ex: João Silva - Residencial" />
+            </div>
+            <div class="field-group">
+              <button type="button" id="btnSalvarProposta" class="primary">Salvar Proposta</button>
+            </div>
+          </div>
+          <div class="field-group">
+            <label>Buscar Propostas</label>
+            <input id="buscaProposta" placeholder="Buscar por nome, cliente ou número..." />
+          </div>
+          <div class="propostas-lista">
+            <div id="listaPropostas"></div>
+          </div>
+        </div>
+
         <h2>Dados da Empresa (Emitente)</h2>
         <form id="formEmpresa" autocomplete="off">
           <div class="field-row">
@@ -184,6 +207,43 @@
           </div>
         </form>
 
+        <h2>📝 Templates de Texto</h2>
+        <div class="templates-section">
+          <div class="field-row">
+            <div class="field-group">
+              <label>Template de Forma de Pagamento</label>
+              <select id="templateFormaPagamento">
+                <option value="">Selecione...</option>
+              </select>
+            </div>
+            <div class="field-group">
+              <button type="button" id="btnAplicarTemplateFormaPagamento">Aplicar</button>
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field-group">
+              <label>Template de Observações Comerciais</label>
+              <select id="templateObsComerciais">
+                <option value="">Selecione...</option>
+              </select>
+            </div>
+            <div class="field-group">
+              <button type="button" id="btnAplicarTemplateObsComerciais">Aplicar</button>
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field-group">
+              <label>Template de Observações Gerais</label>
+              <select id="templateObsGerais">
+                <option value="">Selecione...</option>
+              </select>
+            </div>
+            <div class="field-group">
+              <button type="button" id="btnAplicarTemplateObsGerais">Aplicar</button>
+            </div>
+          </div>
+        </div>
+
         <h2>Condições Comerciais</h2>
         <form id="formCondicoes" autocomplete="off">
           <div class="field-group">
@@ -233,6 +293,32 @@
           <div class="field-group">
             <label>Observações Adicionais</label>
             <textarea name="observacoesAdicionais" rows="3" placeholder="Informações complementares"></textarea>
+          </div>
+        </form>
+
+
+        <h2>🧮 Cálculos e Descontos</h2>
+        <form id="formCalculos" autocomplete="off">
+          <div class="field-row">
+            <div class="field-group">
+              <label>Tipo de Desconto</label>
+              <select name="descontoTipo">
+                <option value="percentual">Percentual (%)</option>
+                <option value="fixo">Valor Fixo (R$)</option>
+              </select>
+            </div>
+            <div class="field-group">
+              <label>Valor do Desconto</label>
+              <input name="descontoValor" type="number" min="0" step="0.01" placeholder="0" />
+            </div>
+          </div>
+          
+          <div class="calculos-info">
+            <div><strong>Área Total:</strong> <span id="calc-area">0</span> m²</div>
+            <div><strong>Preço Médio/m²:</strong> R$ <span id="calc-preco-m2">0,00</span></div>
+            <div><strong>Valor sem Desconto:</strong> R$ <span id="calc-sem-desconto">0,00</span></div>
+            <div><strong>Desconto:</strong> R$ <span id="calc-desconto">0,00</span></div>
+            <div class="total-final"><strong>Valor Final:</strong> R$ <span id="calc-com-desconto">0,00</span></div>
           </div>
         </form>
 
@@ -289,6 +375,11 @@
             <div class="item-actions">
               <button type="button" id="btnAddCaracteristica">Adicionar característica</button>
             </div>
+          </div>
+          <div class="field-group">
+            <label>Imagens do Produto (opcional)</label>
+            <input type="file" id="uploadImagemItem" accept="image/*" multiple />
+            <div id="imagensItemPreview" class="imagens-preview"></div>
           </div>
           <div class="field-row">
             <div class="field-group">
@@ -372,6 +463,15 @@
 
           <h3 class="section-title">Itens da Proposta</h3>
           <div id="pv-itens" class="itens"></div>
+
+
+          <div class="calculos-preview">
+            <div><strong>Área Total:</strong> <span id="pv-area-total">0</span> m²</div>
+            <div><strong>Preço Médio/m²:</strong> R$ <span id="pv-preco-m2">0,00</span></div>
+            <div><strong>Valor sem Desconto:</strong> R$ <span id="pv-valor-sem-desconto">0,00</span></div>
+            <div id="pv-desconto-wrapper" style="display:none"><strong>Desconto:</strong> R$ <span id="pv-desconto-valor">0,00</span></div>
+            <div class="total-destaque"><strong>Valor Final:</strong> R$ <span id="pv-valor-com-desconto">0,00</span></div>
+          </div>
 
           <div class="totais">
             <div><strong>Total de Itens:</strong> <span id="pv-totalItens">0</span></div>

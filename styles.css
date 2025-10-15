@@ -183,3 +183,191 @@ textarea {
   }
 }
 
+
+/* ========== VERSÃO 3.0 - NOVOS ESTILOS ========== */
+
+/* Gerenciador de Propostas */
+.propostas-manager {
+  margin-bottom: 24px;
+}
+
+.propostas-lista {
+  margin-top: 16px;
+  max-height: 400px;
+  overflow-y: auto;
+  border-top: 1px solid var(--border);
+  padding-top: 12px;
+}
+
+.proposta-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  margin-bottom: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+  background: #fff;
+}
+
+.proposta-item:hover {
+  background: #f9fafb;
+  border-color: var(--primary);
+}
+
+.proposta-item.ativa {
+  background: #e0f2f1;
+  border-color: var(--primary);
+  border-width: 2px;
+}
+
+.proposta-info {
+  flex: 1;
+}
+
+.proposta-nome {
+  font-size: 16px;
+  margin-bottom: 4px;
+}
+
+.proposta-detalhes {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.proposta-acoes {
+  display: flex;
+  gap: 8px;
+}
+
+.proposta-acoes button {
+  padding: 6px 12px;
+  font-size: 14px;
+  border: 1px solid var(--border);
+  background: white;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.proposta-acoes button:hover {
+  background: var(--bg);
+  border-color: var(--primary);
+}
+
+/* Templates */
+.templates-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+/* Cálculos */
+.calculos-info {
+  background: #f9fafb;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px;
+  margin-top: 12px;
+}
+
+.calculos-info div {
+  padding: 6px 0;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.calculos-info div:last-child {
+  border-bottom: none;
+}
+
+.calculos-info .total-final {
+  font-size: 18px;
+  color: var(--primary);
+  padding-top: 12px;
+  margin-top: 8px;
+  border-top: 2px solid var(--primary);
+}
+
+/* Preview de Cálculos */
+.calculos-preview {
+  background: #f0f9ff;
+  border: 2px solid #0ea5e9;
+  border-radius: 8px;
+  padding: 16px;
+  margin: 16px 0;
+}
+
+.calculos-preview div {
+  padding: 6px 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.calculos-preview .total-destaque {
+  font-size: 20px;
+  color: #0369a1;
+  padding-top: 12px;
+  margin-top: 8px;
+  border-top: 2px solid #0ea5e9;
+}
+
+/* Upload de Imagens */
+.imagens-preview {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.imagem-container {
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+
+.imagem-container img {
+  width: 100%;
+  height: 100px;
+  object-fit: cover;
+  display: block;
+}
+
+.remove-img {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  background: #ef4444;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Imagens nos itens do preview */
+.item-imagens {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  gap: 6px;
+  margin: 8px 0;
+}
+
+.item-imagens img {
+  width: 100%;
+  height: 80px;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+}
