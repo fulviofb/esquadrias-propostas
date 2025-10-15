@@ -9,6 +9,32 @@ const state = {
     endereco: '', cidade: '', cep: '',
     logo: ''
   },
+  especificacoes: {
+    vidroTipo: 'Temperados',
+    vidroEspessura: '8',
+    vidroAcabamento: 'incolor',
+    perfilLinha: 'Linha padrão',
+    perfilAcabamento: 'preto fosco',
+    ferragens: 'Inclusas (roldanas, fechos, escovas e acessórios)',
+    instalacao: 'Inclusa, realizada por equipe técnica especializada',
+    garantiaFabricacao: '1',
+    garantiaInstalacao: '3',
+    normasTecnicas: 'ABNT NBR 7199 e NBR 10821'
+  },
+  condicoesComerciais: {
+    formaPagamento: '50% de sinal no aceite da proposta e 50% na conclusão da instalação',
+    prazoEntrega: '30',
+    prazoInstalacao: '5',
+    validadeProposta: '15',
+    garantiaPerfis: '5',
+    garantiaVidros: '1',
+    observacoesComerciais: 'Esta proposta não inclui serviços de alvenaria, pintura ou arremates que se façam necessários para a instalação das esquadrias.'
+  },
+  observacoesGerais: {
+    areaCobertura: 'O transporte e a instalação estão inclusos dentro da área urbana de Goiânia.',
+    observacaoAlteracoes: 'Alterações nas medidas após conferência técnica poderão implicar revisão de valores.',
+    observacoesAdicionais: ''
+  },
   itens: [],
   catalogo: [],
   seq: 1
@@ -17,6 +43,9 @@ const state = {
 const el = {
   formDados: document.getElementById('formDados'),
   formEmpresa: document.getElementById('formEmpresa'),
+  formEspecificacoes: document.getElementById('formEspecificacoes'),
+  formCondicoes: document.getElementById('formCondicoes'),
+  formObservacoes: document.getElementById('formObservacoes'),
   formItem: document.getElementById('formItem'),
   tabela: document.getElementById('tabelaItens'),
   pv: {
@@ -40,7 +69,29 @@ const el = {
     empNome: document.getElementById('pv-emp-nome'),
     empDoc: document.getElementById('pv-emp-doc'),
     empContato: document.getElementById('pv-emp-contato'),
-    empEnd: document.getElementById('pv-emp-end')
+    empEnd: document.getElementById('pv-emp-end'),
+    // Especificações
+    vidros: document.getElementById('pv-vidros'),
+    perfis: document.getElementById('pv-perfis'),
+    ferragens: document.getElementById('pv-ferragens'),
+    instalacao: document.getElementById('pv-instalacao'),
+    garantiaEspec: document.getElementById('pv-garantia-espec'),
+    normas: document.getElementById('pv-normas'),
+    // Condições Comerciais
+    prazoEntrega: document.getElementById('pv-prazo-entrega'),
+    prazoInstalacao: document.getElementById('pv-prazo-instalacao'),
+    validade: document.getElementById('pv-validade'),
+    formaPagamento: document.getElementById('pv-forma-pagamento'),
+    garantia: document.getElementById('pv-garantia'),
+    obsComerciais: document.getElementById('pv-obs-comerciais'),
+    obsComerciaisWrapper: document.getElementById('pv-obs-comerciais-wrapper'),
+    // Observações
+    areaCobertura: document.getElementById('pv-area-cobertura'),
+    areaCoberturaWrapper: document.getElementById('pv-area-cobertura-wrapper'),
+    obsAlteracoes: document.getElementById('pv-obs-alteracoes'),
+    obsAlteracoesWrapper: document.getElementById('pv-obs-alteracoes-wrapper'),
+    obsAdicionais: document.getElementById('pv-obs-adicionais'),
+    obsAdicionaisWrapper: document.getElementById('pv-obs-adicionais-wrapper')
   },
   statusItem: document.getElementById('statusItem'),
   btnAdicionar: document.getElementById('btnAdicionar'),
@@ -94,6 +145,72 @@ function renderDados() {
   }
   if (el.brandLogo) {
     el.brandLogo.src = e.logo || 'assets/logo.svg';
+  }
+
+  // Renderizar especificações técnicas
+  const esp = state.especificacoes || {};
+  const vidrosText = [esp.vidroTipo, `espessura ${esp.vidroEspessura} mm`, `tipo ${esp.vidroAcabamento}`].filter(Boolean).join(', ');
+  const perfisText = [esp.perfilLinha, `acabamento ${esp.perfilAcabamento}`].filter(Boolean).join(', ');
+  
+  if (el.pv.vidros) el.pv.vidros.textContent = vidrosText || '—';
+  if (el.pv.perfis) el.pv.perfis.textContent = perfisText || '—';
+  if (el.pv.ferragens) el.pv.ferragens.textContent = esp.ferragens || '—';
+  if (el.pv.instalacao) el.pv.instalacao.textContent = esp.instalacao || '—';
+  
+  const garantiaEspecText = [
+    esp.garantiaFabricacao ? `${esp.garantiaFabricacao} ano(s) contra defeitos de fabricação` : '',
+    esp.garantiaInstalacao ? `${esp.garantiaInstalacao} meses para instalação (ajustes e regulagens)` : ''
+  ].filter(Boolean).join('; ');
+  if (el.pv.garantiaEspec) el.pv.garantiaEspec.textContent = garantiaEspecText || '—';
+  if (el.pv.normas) el.pv.normas.textContent = esp.normasTecnicas || '—';
+
+  // Renderizar condições comerciais
+  const cond = state.condicoesComerciais || {};
+  if (el.pv.prazoEntrega) el.pv.prazoEntrega.textContent = cond.prazoEntrega ? `${cond.prazoEntrega} dias úteis após aprovação e medição final` : '—';
+  if (el.pv.prazoInstalacao) el.pv.prazoInstalacao.textContent = cond.prazoInstalacao ? `${cond.prazoInstalacao} dias úteis após início dos trabalhos` : '—';
+  if (el.pv.validade) el.pv.validade.textContent = cond.validadeProposta ? `${cond.validadeProposta} dias corridos` : '—';
+  if (el.pv.formaPagamento) el.pv.formaPagamento.textContent = cond.formaPagamento || '—';
+  
+  const garantiaText = [
+    cond.garantiaPerfis ? `${cond.garantiaPerfis} anos de garantia contra defeitos de fabricação dos perfis de alumínio` : '',
+    cond.garantiaVidros ? `${cond.garantiaVidros} ano(s) para os vidros e instalação` : ''
+  ].filter(Boolean).join(' e ');
+  if (el.pv.garantia) el.pv.garantia.textContent = garantiaText || '—';
+  
+  if (el.pv.obsComerciais && el.pv.obsComerciaisWrapper) {
+    if (cond.observacoesComerciais) {
+      el.pv.obsComerciais.textContent = cond.observacoesComerciais;
+      el.pv.obsComerciaisWrapper.style.display = 'block';
+    } else {
+      el.pv.obsComerciaisWrapper.style.display = 'none';
+    }
+  }
+
+  // Renderizar observações gerais
+  const obs = state.observacoesGerais || {};
+  if (el.pv.areaCobertura && el.pv.areaCoberturaWrapper) {
+    if (obs.areaCobertura) {
+      el.pv.areaCobertura.textContent = obs.areaCobertura;
+      el.pv.areaCoberturaWrapper.style.display = 'block';
+    } else {
+      el.pv.areaCoberturaWrapper.style.display = 'none';
+    }
+  }
+  if (el.pv.obsAlteracoes && el.pv.obsAlteracoesWrapper) {
+    if (obs.observacaoAlteracoes) {
+      el.pv.obsAlteracoes.textContent = obs.observacaoAlteracoes;
+      el.pv.obsAlteracoesWrapper.style.display = 'block';
+    } else {
+      el.pv.obsAlteracoesWrapper.style.display = 'none';
+    }
+  }
+  if (el.pv.obsAdicionais && el.pv.obsAdicionaisWrapper) {
+    if (obs.observacoesAdicionais) {
+      el.pv.obsAdicionais.textContent = obs.observacoesAdicionais;
+      el.pv.obsAdicionaisWrapper.style.display = 'block';
+    } else {
+      el.pv.obsAdicionaisWrapper.style.display = 'none';
+    }
   }
 }
 
@@ -170,14 +287,19 @@ function restore() {
     const s = JSON.parse(raw);
     Object.assign(state.dados, s.dados || {});
     Object.assign(state.emissor, s.emissor || {});
+    Object.assign(state.especificacoes, s.especificacoes || {});
+    Object.assign(state.condicoesComerciais, s.condicoesComerciais || {});
+    Object.assign(state.observacoesGerais, s.observacoesGerais || {});
     state.itens = s.itens || [];
     state.catalogo = s.catalogo || [];
     state.seq = s.seq || 1;
+    
     // preencher form dados
     [...el.formDados.elements].forEach(input => {
       if (!input.name) return;
       input.value = state.dados[input.name] || '';
     });
+    
     // preencher form empresa
     if (el.formEmpresa) {
       [...el.formEmpresa.elements].forEach(input => {
@@ -185,6 +307,31 @@ function restore() {
         input.value = state.emissor[input.name] || '';
       });
     }
+    
+    // preencher form especificações
+    if (el.formEspecificacoes) {
+      [...el.formEspecificacoes.elements].forEach(input => {
+        if (!input.name) return;
+        input.value = state.especificacoes[input.name] || '';
+      });
+    }
+    
+    // preencher form condições
+    if (el.formCondicoes) {
+      [...el.formCondicoes.elements].forEach(input => {
+        if (!input.name) return;
+        input.value = state.condicoesComerciais[input.name] || '';
+      });
+    }
+    
+    // preencher form observações
+    if (el.formObservacoes) {
+      [...el.formObservacoes.elements].forEach(input => {
+        if (!input.name) return;
+        input.value = state.observacoesGerais[input.name] || '';
+      });
+    }
+    
     renderDados();
     renderItens();
   } catch (e) {}
@@ -312,6 +459,27 @@ el.formEmpresa && el.formEmpresa.addEventListener('input', e => {
   persist();
 });
 
+el.formEspecificacoes && el.formEspecificacoes.addEventListener('input', e => {
+  const k = e.target.name; if (!k) return;
+  state.especificacoes[k] = e.target.value;
+  renderDados();
+  persist();
+});
+
+el.formCondicoes && el.formCondicoes.addEventListener('input', e => {
+  const k = e.target.name; if (!k) return;
+  state.condicoesComerciais[k] = e.target.value;
+  renderDados();
+  persist();
+});
+
+el.formObservacoes && el.formObservacoes.addEventListener('input', e => {
+  const k = e.target.name; if (!k) return;
+  state.observacoesGerais[k] = e.target.value;
+  renderDados();
+  persist();
+});
+
 el.btnAdicionar.addEventListener('click', () => {
   const f = el.formItem;
   const it = {
@@ -352,6 +520,7 @@ el.btnAdicionar.addEventListener('click', () => {
 el.btnNova.addEventListener('click', () => {
   state.dados = { cliente:'', cpfcnpj:'', contato:'', telefone:'', email:'', endereco:'', cidade:'', cep:'', numero:'', obra:'', prazo:'' };
   state.emissor = { empresa:'', cnpj:'', ie:'', telefone:'', email:'', endereco:'', cidade:'', cep:'', logo:'' };
+  // Manter valores padrão das especificações e condições
   state.itens = []; state.seq = 1;
   [...el.formDados.elements].forEach(input => { if (input.name) input.value=''; });
   if (el.formEmpresa) {
@@ -417,4 +586,4 @@ if (!state.catalogo || !state.catalogo.length) {
 }
 updateProdutoSelect();
 renderCatalogoLista();
-renderCamposDoModelo();
+

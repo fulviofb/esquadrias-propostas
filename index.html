@@ -73,6 +73,7 @@
             </div>
           </div>
         </form>
+
         <h2>Dados da Proposta</h2>
         <form id="formDados" autocomplete="off">
           <div class="field-group">
@@ -128,6 +129,110 @@
           <div class="field-group">
             <label>Prazo de Execução</label>
             <input name="prazo" placeholder="ex.: 30 dias" />
+          </div>
+        </form>
+
+        <h2>Especificações Técnicas</h2>
+        <form id="formEspecificacoes" autocomplete="off">
+          <div class="field-row">
+            <div class="field-group">
+              <label>Tipo de Vidros</label>
+              <input name="vidroTipo" placeholder="ex.: Temperados" />
+            </div>
+            <div class="field-group">
+              <label>Espessura (mm)</label>
+              <input name="vidroEspessura" placeholder="ex.: 8" />
+            </div>
+            <div class="field-group">
+              <label>Acabamento</label>
+              <input name="vidroAcabamento" placeholder="ex.: incolor" />
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field-group">
+              <label>Linha dos Perfis</label>
+              <input name="perfilLinha" placeholder="ex.: Linha padrão" />
+            </div>
+            <div class="field-group">
+              <label>Acabamento Perfis</label>
+              <input name="perfilAcabamento" placeholder="ex.: preto fosco" />
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field-group">
+              <label>Ferragens</label>
+              <input name="ferragens" placeholder="ex.: Inclusas (roldanas, fechos, escovas)" />
+            </div>
+            <div class="field-group">
+              <label>Instalação</label>
+              <input name="instalacao" placeholder="ex.: Inclusa, equipe especializada" />
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field-group">
+              <label>Garantia Fabricação (anos)</label>
+              <input name="garantiaFabricacao" placeholder="ex.: 1" />
+            </div>
+            <div class="field-group">
+              <label>Garantia Instalação (meses)</label>
+              <input name="garantiaInstalacao" placeholder="ex.: 3" />
+            </div>
+          </div>
+          <div class="field-group">
+            <label>Normas Técnicas</label>
+            <input name="normasTecnicas" placeholder="ex.: ABNT NBR 7199 e NBR 10821" />
+          </div>
+        </form>
+
+        <h2>Condições Comerciais</h2>
+        <form id="formCondicoes" autocomplete="off">
+          <div class="field-group">
+            <label>Forma de Pagamento</label>
+            <textarea name="formaPagamento" rows="2" placeholder="Ex: 50% de sinal no aceite da proposta e 50% na conclusão da instalação"></textarea>
+          </div>
+          <div class="field-row">
+            <div class="field-group">
+              <label>Prazo de Entrega (dias úteis)</label>
+              <input name="prazoEntrega" placeholder="ex.: 30" />
+            </div>
+            <div class="field-group">
+              <label>Prazo de Instalação (dias úteis)</label>
+              <input name="prazoInstalacao" placeholder="ex.: 5" />
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field-group">
+              <label>Validade da Proposta (dias)</label>
+              <input name="validadeProposta" placeholder="ex.: 15" />
+            </div>
+            <div class="field-group">
+              <label>Garantia Perfis (anos)</label>
+              <input name="garantiaPerfis" placeholder="ex.: 5" />
+            </div>
+            <div class="field-group">
+              <label>Garantia Vidros/Instalação (anos)</label>
+              <input name="garantiaVidros" placeholder="ex.: 1" />
+            </div>
+          </div>
+          <div class="field-group">
+            <label>Observações Comerciais</label>
+            <textarea name="observacoesComerciais" rows="3" placeholder="Ex: Esta proposta não inclui serviços de alvenaria, pintura ou arremates"></textarea>
+          </div>
+        </form>
+
+        <h2>Observações Gerais</h2>
+        <form id="formObservacoes" autocomplete="off">
+          <div class="field-group">
+            <label>Área de Cobertura (Transporte/Instalação)</label>
+            <input name="areaCobertura" placeholder="ex.: área urbana de Goiânia" />
+          </div>
+          <div class="field-group">
+            <label>Observação sobre Alterações</label>
+            <input name="observacaoAlteracoes" placeholder="ex.: Alterações nas medidas após conferência técnica poderão implicar revisão de valores" />
+          </div>
+          <div class="field-group">
+            <label>Observações Adicionais</label>
+            <textarea name="observacoesAdicionais" rows="3" placeholder="Informações complementares"></textarea>
           </div>
         </form>
 
@@ -255,11 +360,39 @@
             <div class="prazo"><strong>Prazo de Execução:</strong> <span id="pv-prazo">—</span></div>
           </div>
 
+          <h3 class="section-title">Especificações Técnicas</h3>
+          <div class="specs-section">
+            <div><strong>Vidros:</strong> <span id="pv-vidros">—</span></div>
+            <div><strong>Perfis de alumínio:</strong> <span id="pv-perfis">—</span></div>
+            <div><strong>Ferragens:</strong> <span id="pv-ferragens">—</span></div>
+            <div><strong>Instalação:</strong> <span id="pv-instalacao">—</span></div>
+            <div><strong>Garantia:</strong> <span id="pv-garantia-espec">—</span></div>
+            <div><strong>Normas técnicas:</strong> <span id="pv-normas">—</span></div>
+          </div>
+
+          <h3 class="section-title">Itens da Proposta</h3>
           <div id="pv-itens" class="itens"></div>
 
           <div class="totais">
             <div><strong>Total de Itens:</strong> <span id="pv-totalItens">0</span></div>
             <div><strong>Valor Total:</strong> R$ <span id="pv-valorTotal">0,00</span></div>
+          </div>
+
+          <h3 class="section-title">Condições Comerciais</h3>
+          <div class="comercial-section">
+            <div><strong>Prazo de entrega:</strong> <span id="pv-prazo-entrega">—</span></div>
+            <div><strong>Prazo de instalação:</strong> <span id="pv-prazo-instalacao">—</span></div>
+            <div><strong>Validade da proposta:</strong> <span id="pv-validade">—</span></div>
+            <div><strong>Forma de pagamento:</strong> <span id="pv-forma-pagamento">—</span></div>
+            <div><strong>Garantia:</strong> <span id="pv-garantia">—</span></div>
+            <div id="pv-obs-comerciais-wrapper" style="display: none;"><strong>Observações:</strong> <span id="pv-obs-comerciais">—</span></div>
+          </div>
+
+          <h3 class="section-title">Observações</h3>
+          <div class="obs-section">
+            <div id="pv-area-cobertura-wrapper" style="display: none;">• <span id="pv-area-cobertura">—</span></div>
+            <div id="pv-obs-alteracoes-wrapper" style="display: none;">• <span id="pv-obs-alteracoes">—</span></div>
+            <div id="pv-obs-adicionais-wrapper" style="display: none;">• <span id="pv-obs-adicionais">—</span></div>
           </div>
 
           <footer class="rodape">
@@ -274,3 +407,4 @@
     <script src="app.js"></script>
   </body>
   </html>
+
