@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gerador de Propostas • Esquadrias</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="app-header">
+      <div class="brand">
+        <img id="brandLogo" src="assets/logo.svg" alt="Logo" />
+        <div>
+          <strong>ESQUADRIAS</strong>
+          <span>Gerador de Propostas</span>
+        </div>
+      </div>
+      <div class="actions">
+        <button id="btnNova">Nova proposta</button>
+        <button id="btnSalvar">Salvar</button>
+        <button id="btnPDF" class="primary">Exportar PDF</button>
+      </div>
+    </header>
+
+    <main class="grid">
+      <section class="panel form-panel">
+        <h2>Dados da Empresa (Emitente)</h2>
+        <form id="formEmpresa" autocomplete="off">
+          <div class="field-row">
+            <div class="field-group" style="grid-column: 1 / -1;">
+              <label>Logo da empresa</label>
+              <input name="logo" type="file" accept="image/*" />
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field-group">
+              <label>Empresa</label>
+              <input name="empresa" placeholder="Nome/Razão Social" />
+            </div>
+            <div class="field-group">
+              <label>CNPJ</label>
+              <input name="cnpj" />
+            </div>
+            <div class="field-group">
+              <label>IE (opcional)</label>
+              <input name="ie" />
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field-group">
+              <label>Telefone</label>
+              <input name="telefone" />
+            </div>
+            <div class="field-group">
+              <label>E-mail</label>
+              <input name="email" type="email" />
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field-group" style="grid-column: 1 / -1;">
+              <label>Endereço</label>
+              <input name="endereco" />
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field-group">
+              <label>Cidade</label>
+              <input name="cidade" />
+            </div>
+            <div class="field-group">
+              <label>CEP</label>
+              <input name="cep" />
+            </div>
+          </div>
+        </form>
+        <h2>Dados da Proposta</h2>
+        <form id="formDados" autocomplete="off">
+          <div class="field-group">
+            <label>Cliente</label>
+            <input name="cliente" placeholder="Nome/Razão Social" />
+          </div>
+          <div class="field-row">
+            <div class="field-group">
+              <label>CPF/CNPJ</label>
+              <input name="cpfcnpj" />
+            </div>
+            <div class="field-group">
+              <label>Contato</label>
+              <input name="contato" />
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field-group">
+              <label>Telefone</label>
+              <input name="telefone" />
+            </div>
+            <div class="field-group">
+              <label>E-mail</label>
+              <input name="email" type="email" />
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field-group">
+              <label>End. Obra</label>
+              <input name="endereco" />
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field-group">
+              <label>Cidade</label>
+              <input name="cidade" />
+            </div>
+            <div class="field-group">
+              <label>CEP</label>
+              <input name="cep" />
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field-group">
+              <label>Proposta Nº</label>
+              <input name="numero" placeholder="AA-00-0000" />
+            </div>
+            <div class="field-group">
+              <label>Obra</label>
+              <input name="obra" />
+            </div>
+          </div>
+          <div class="field-group">
+            <label>Prazo de Execução</label>
+            <input name="prazo" placeholder="ex.: 30 dias" />
+          </div>
+        </form>
+
+        <h2>Itens</h2>
+        <form id="formItem" class="item-form" autocomplete="off">
+          <div class="field-row">
+            <div class="field-group">
+              <label>Produto</label>
+              <select name="produto" id="selProduto">
+                <option value="livre">Produto livre (descrição manual)</option>
+              </select>
+            </div>
+            <div class="field-group">
+              <label>Qtd</label>
+              <input name="qtd" type="number" min="1" value="1" />
+            </div>
+            <div class="field-group">
+              <label>L (mm)</label>
+              <input name="largura" type="number" min="0" />
+            </div>
+            <div class="field-group">
+              <label>H (mm)</label>
+              <input name="altura" type="number" min="0" />
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field-group">
+              <label>Linha</label>
+              <input name="linha" placeholder="Suprema" />
+            </div>
+            <div class="field-group">
+              <label>Localização</label>
+              <input name="local" placeholder="ex.: Sala, Quarto" />
+            </div>
+            <div class="field-group">
+              <label>Cor</label>
+              <input name="cor" placeholder="ex.: RAL9005F" />
+            </div>
+            <div class="field-group">
+              <label>Vidros</label>
+              <input name="vidro" placeholder="ex.: Temperado 6mm incolor" />
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field-group" style="grid-column: 1 / -1;">
+              <label>Descrição do produto (quando escolher "livre")</label>
+              <input name="descricao" placeholder="Ex.: Janela de Correr sob medida" />
+            </div>
+          </div>
+          <div class="field-group" id="prodCampos"></div>
+          <div class="field-group">
+            <label>Características personalizadas</label>
+            <div id="caracteristicasList" class="attr-list"></div>
+            <div class="item-actions">
+              <button type="button" id="btnAddCaracteristica">Adicionar característica</button>
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field-group">
+              <label>Código (auto)</label>
+              <input name="codigo" placeholder="J1" disabled />
+            </div>
+            <div class="field-group">
+              <label>Observações</label>
+              <input name="obs" />
+            </div>
+            <div class="field-group">
+              <label>Preço (R$)</label>
+              <input name="preco" type="number" min="0" step="0.01" />
+            </div>
+          </div>
+          <div class="item-actions">
+            <button type="button" id="btnAdicionar" class="primary">Adicionar item</button>
+            <span id="statusItem" class="muted"></span>
+          </div>
+        </form>
+
+        <div class="tabela-itens" id="tabelaItens"></div>
+
+        <h2>Catálogo de Produtos (Modelos)</h2>
+        <form id="formCatalogo" class="catalogo-form" autocomplete="off">
+          <div class="field-row">
+            <div class="field-group" style="grid-column: 1 / -1;">
+              <label>Nome do modelo</label>
+              <input name="nome" placeholder="Ex.: Janela de Correr - 4 Folhas - Suprema" />
+            </div>
+          </div>
+          <div class="field-group">
+            <label>Campos do modelo</label>
+            <div id="catalogoCampos" class="attr-list"></div>
+            <div class="item-actions">
+              <button type="button" id="btnAddCampo">Adicionar campo</button>
+              <button type="button" id="btnSalvarModelo" class="primary">Salvar modelo</button>
+            </div>
+          </div>
+          <div id="catalogoLista" class="catalogo-list"></div>
+        </form>
+      </section>
+
+      <section class="panel preview-panel">
+        <div id="propostaPreview" class="proposta">
+          <div class="topline">
+            <div>
+              <h1>Proposta Nº <span id="pv-numero">00-00-0000</span></h1>
+              <div id="pv-obra" class="obra">OBRA</div>
+            </div>
+            <div class="empresa">
+              <img id="pv-emp-logo" alt="Logo da empresa" />
+              <div id="pv-emp-nome">—</div>
+              <div class="muted"><span id="pv-emp-doc">—</span></div>
+              <div class="muted"><span id="pv-emp-contato">—</span></div>
+              <div class="muted"><span id="pv-emp-end">—</span></div>
+            </div>
+          </div>
+
+          <div class="info">
+            <div><strong>Cliente:</strong> <span id="pv-cliente">—</span></div>
+            <div><strong>CPF/CNPJ:</strong> <span id="pv-cpfcnpj">—</span></div>
+            <div><strong>Contato:</strong> <span id="pv-contato">—</span></div>
+            <div><strong>Telefone:</strong> <span id="pv-telefone">—</span></div>
+            <div><strong>E-mail:</strong> <span id="pv-email">—</span></div>
+            <div><strong>End. Obra:</strong> <span id="pv-endereco">—</span></div>
+            <div><strong>Cidade:</strong> <span id="pv-cidade">—</span></div>
+            <div><strong>CEP:</strong> <span id="pv-cep">—</span></div>
+            <div class="prazo"><strong>Prazo de Execução:</strong> <span id="pv-prazo">—</span></div>
+          </div>
+
+          <div id="pv-itens" class="itens"></div>
+
+          <div class="totais">
+            <div><strong>Total de Itens:</strong> <span id="pv-totalItens">0</span></div>
+            <div><strong>Valor Total:</strong> R$ <span id="pv-valorTotal">0,00</span></div>
+          </div>
+
+          <footer class="rodape">
+            <div>Emitido por <span id="pv-usuario">ADMINISTRADOR</span> em <span id="pv-data">—</span></div>
+            <div class="muted">Este documento é um orçamento; valores podem variar conforme obra.</div>
+          </footer>
+        </div>
+      </section>
+    </main>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="app.js"></script>
+  </body>
+  </html>
